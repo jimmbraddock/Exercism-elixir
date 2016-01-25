@@ -9,13 +9,7 @@ defmodule ETL do
   """
   @spec transform(Dict.t) :: map()
   def transform(input) do
-    input
-    |> Enum.reduce(%{}, &_transform/2)
-  end
-
-  defp _transform({count, words}, transf_acc) do
-    Enum.reduce(words, transf_acc, fn (x, acc) ->
-        Map.put_new(acc, String.downcase(x), count)
-    end)
+    for {count, words} <- input, w <- words, into: %{}, do:
+      {String.downcase(w), count}
   end
 end
