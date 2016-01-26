@@ -5,7 +5,7 @@ else
 end
 
 ExUnit.start
-ExUnit.configure exclude: :pending, trace: true
+#ExUnit.configure exclude: :pending, trace: true
 
 defmodule ScrabbleScoreTest do
   use ExUnit.Case, async: true
@@ -15,12 +15,12 @@ defmodule ScrabbleScoreTest do
     assert Scrabble.score("") == 0
   end
 
-  @tag :pending
+  #@tag :pending
   test "whitespace scores zero" do
     assert Scrabble.score(" \t\n") == 0
   end
 
-  @tag :pending
+ # @tag :pending
   test "scores very short word" do
     assert Scrabble.score("a") == 1
   end
