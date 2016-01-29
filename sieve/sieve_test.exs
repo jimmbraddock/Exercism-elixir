@@ -5,12 +5,12 @@ else
 end
 
 ExUnit.start
-ExUnit.configure exclude: :pending, trace: true
+#ExUnit.configure exclude: :pending, trace: true
 
 defmodule SieveTest do
   use ExUnit.Case, async: true
 
-  # @tag :pending
+   @tag :pending
   test "a few primes" do
     assert Sieve.primes_to(10) == [2, 3, 5, 7]
   end
