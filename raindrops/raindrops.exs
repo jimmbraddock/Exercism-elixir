@@ -1,7 +1,4 @@
 defmodule Raindrops do
- 
-@t ["Pling": 3, "Plang": 5, "Plong": 7]
-
   @doc """
   Returns a string based on raindrop factors.
 
@@ -13,19 +10,12 @@ defmodule Raindrops do
   """
   @spec convert(pos_integer) :: String.t
   def convert(number) do
-    raindrop = prime_to_string(number)
-    if raindrop == "" do
-      to_string(number)
-    else 
-      raindrop
-    end
+    convert(number, [])
   end
 
-  defp prime_to_string(n) do
-    Enum.reduce(@t, "", fn ({w, p}, acc) when rem(n, p) == 0 ->
-        acc <> to_string(w)
-      (_, acc) -> 
-        acc
-    end)
-  end 
+  defp convert(n, acc) when rem(n, 3) == 0, do: convert(div(n, 3), acc ++ ["Pling"])
+  defp convert(n, acc) when rem(n, 5) == 0, do: convert(div(n, 5), acc ++ ["Plang"])
+  defp convert(n, acc) when rem(n, 7) == 0, do: convert(div(n, 7), acc ++ ["Plong"])
+  defp convert(n, []), do: to_string(n)
+  defp convert(_, acc), do: acc |> Enum.uniq |> Enum.join
 end
