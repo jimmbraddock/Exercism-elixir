@@ -5,16 +5,20 @@ defmodule Palindromes do
   """
   @spec generate(non_neg_integer, non_neg_integer) :: map() 
   def generate(max_factor, min_factor \\ 1) do
-    max_factor
-    |> _generate_palindroms(min_factor)
-    |> Enum.reverse
-    |> Enum.group_by(fn [a, b] -> a*b end)
+    palindromes = for a <- min_factor..max_factor,
+                      b <- a..max_factor,
+                      prod = a*b,
+                      palindrome?(prod),
+                      do: {prod, [a, b]}
+           
+    Enum.reduce(palindromes, %{}, fn {prod, pair}, acc ->
+      Map.update(acc, prod, [pair], &(&1 ++ [pair]))
+    end)
   end
 
-  def _generate_palindroms(max, min) do
-    for a <- min..max,
-        b <- a..max,
-        "#{a*b}" == String.reverse("#{a*b}"),
-        do: [a,b]
+  def palindrome?(n) do
+    s = Integer.to_string(n)
+    s == String.reverse(s)
   end
 end
+
