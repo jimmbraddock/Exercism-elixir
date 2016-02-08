@@ -5,12 +5,12 @@ else
 end
 
 ExUnit.start
-#ExUnit.configure exclude: :pending, trace: true
+ExUnit.configure exclude: :pending, trace: true
 
 defmodule PalindromeProductsTest do
   use ExUnit.Case
 
-  # @tag :pending
+  @tag :pending
   test "largest palindrome from single digit factors" do
     palindromes = Palindromes.generate(9)
     assert palindromes |> Dict.keys |> Enum.sort |> List.last == 9
@@ -38,7 +38,7 @@ defmodule PalindromeProductsTest do
     assert palindromes[906609] == [[913, 993]]
   end
 
-  @tag :pending
+  #@tag :pending
   test "smallest palindromes from triple digit factors" do
     palindromes = Palindromes.generate(999, 100)
     assert palindromes |> Dict.keys |> Enum.sort |> hd == 10201

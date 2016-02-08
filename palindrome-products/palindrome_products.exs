@@ -8,7 +8,8 @@ defmodule Palindromes do
     palindromes = for a <- min_factor..max_factor,
                       b <- a..max_factor,
                       prod = a*b,
-                      palindrome?(prod),
+                      "#{prod}" == String.reverse("#{prod}"),
+                      #Integer.to_string(prod) == String.reverse(Integer.to_string(prod)),
                       do: {prod, [a, b]}
            
     Enum.reduce(palindromes, %{}, fn {prod, pair}, acc ->
