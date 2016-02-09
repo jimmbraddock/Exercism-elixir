@@ -5,7 +5,7 @@ else
 end
 
 ExUnit.start
-ExUnit.configure exclude: :pending, trace: true
+#ExUnit.configure exclude: :pending, trace: true
 
 defmodule MinesweeperTest do
   use ExUnit.Case
@@ -18,7 +18,7 @@ defmodule MinesweeperTest do
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "empty board" do
     b = ["   ",
          "   ",
@@ -26,7 +26,7 @@ defmodule MinesweeperTest do
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "board full of mines" do
     b = ["***",
          "***",
@@ -34,7 +34,7 @@ defmodule MinesweeperTest do
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "surrounded" do
     b = ["***",
          "*8*",
@@ -42,13 +42,13 @@ defmodule MinesweeperTest do
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "horizontal line" do
     b = ["1*2*1"]
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "vertical line" do
     b = ["1",
          "*",
@@ -58,7 +58,7 @@ defmodule MinesweeperTest do
     assert Minesweeper.annotate(clean(b)) == b
   end
 
-  @tag :pending
+  #@tag :pending
   test "cross" do
     b = [" 2*2 ",
          "25*52",
