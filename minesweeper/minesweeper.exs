@@ -36,13 +36,12 @@ defmodule Minesweeper do
   end
 
   defp get_cell_mines(cells, {i, j}) do
-     candidates = for x <- [-1, 0, 1], y <- [-1, 0, 1], do: {x+i, y+j}
-     count = Enum.reduce(candidates, 0, fn cell, mines_counter ->
-           cond do
-             Map.get(cells, cell) == @mine -> mines_counter + 1
-             true -> mines_counter
-           end
-         end)
+     count = (for x <- [-1, 0, 1],
+                  y <- [-1, 0, 1], 
+                  Map.get(cells, {x+i, y+j}) == @mine,
+              do: 1)
+             |> Enum.sum
+     
      cond do
        count == 0 -> " "
        true -> Integer.to_string(count)
