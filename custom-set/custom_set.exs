@@ -7,7 +7,7 @@ defmodule CustomSet do
 
   def delete(t, value), do: new(Enum.filter(t.list, &(&1 !== value)))
 
-  def difference(t1, t2), do: new(Enum.reject(t1.list, &(member?(t2, &1))))
+  def difference(t1, t2), do: new(t1.list -- t2.list)
 
   def disjoint?(t1, t2), do: size(intersection(t1,t2)) == 0
 
