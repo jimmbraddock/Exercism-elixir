@@ -1,6 +1,6 @@
 defmodule Forth do
   @opaque evaluator :: any
-  
+
   defstruct stack: [], word_parse?: false, words: %{}, currentdef: [], currentword: nil
 
   @doc """
@@ -27,7 +27,7 @@ defmodule Forth do
       true -> word_parse(token, ev)
     end
   end
-  
+
   defp common_parse(token, ev) do
     cond do
       word?(token, ev) == true -> run_word(token, ev)
@@ -89,12 +89,12 @@ defmodule Forth do
   defp sum(ev=%Forth{stack: l}) when length(l) < 2, do: raise Forth.StackUnderflow
   defp sum(ev=%Forth{stack: l=[h1, h2|t]}) do
     %Forth{ev|stack: [h2 + h1 | t]}
-  end 
+  end
 
   defp multiplication(ev=%Forth{stack: l}) when length(l) < 2, do: raise Forth.StackUnderflow
   defp multiplication(ev=%Forth{stack: l=[h1, h2|t]}) do
     %Forth{ev|stack: [h2 * h1 | t]}
-  end  
+  end
 
   defp division(ev=%Forth{stack: l=[0|t]}), do: raise Forth.DivisionByZero
   defp division(ev=%Forth{stack: l=[h1, h2|t]}) do
@@ -106,7 +106,7 @@ defmodule Forth do
     %Forth{ev|stack: [hd(stack)|stack]}
   end
 
-  
+
   defp drop(ev=%Forth{stack: stack}) when length(stack) < 1, do: raise Forth.StackUnderflow
   defp drop(ev=%Forth{stack: stack=[_|t]}) do
     %Forth{ev|stack: t}
@@ -120,7 +120,7 @@ defmodule Forth do
   defp swap(ev=%Forth{stack: stack}) when length(stack) < 2, do: raise Forth.StackUnderflow
   defp swap(ev=%Forth{stack: stack=[h1, h2|t]}) do
     %Forth{ev|stack: [h2, h1|t]}
-  end      
+  end
 
   @doc """
   Return the current stack as a string with the element on top of the stack
@@ -145,7 +145,7 @@ defmodule Forth do
 
   defmodule UnknownWord do
     defexception [:message]
-    def exception(word), do: %UnknownWord{message: "unknown word: #{inspect word}"}    
+    def exception(word), do: %UnknownWord{message: "unknown word: #{inspect word}"}
   end
 
   defmodule DivisionByZero do
