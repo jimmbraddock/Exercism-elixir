@@ -33,27 +33,14 @@ defmodule Matrix do
   def saddle_points(str) do
     cols = str |> columns
     rows = str |> rows
-    Enum.with_index(rows)
-      |> Enum.reduce([], fn {row, row_index}, acc ->
-           acc ++ get_saddle_points_in_row(row, cols, row_index)
-         end)
-  end
-
-  @spec get_saddle_points_in_row([], [], integer) :: [{integer, integer}]
-  defp get_saddle_points_in_row(row, cols, row_index) do
-    Enum.reduce(Stream.with_index(row), [], fn {value, col_index}, points ->
-      col = Enum.at(cols, col_index)
-      if saddle_point?(value, row, col) do
-        points ++ [{row_index, col_index}]
-      else
-        points
-      end
-    end)
-  end
-
-  @spec saddle_point?(integer, [], []) :: boolean
-  defp saddle_point?(value, row, col) do
-    Enum.all?(row, &(&1 <= value)) and Enum.all?(col, &(&1 >= value))
+    for x <- 0..length(rows) - 1,
+        y <- 0..length(cols) - 1,
+        row = Enum.at(rows, x),
+        col = Enum.at(cols, y),
+        el = Enum.at(row, y),
+        Enum.all?(row, &(&1 <= el)),
+        Enum.all?(col, &(&1 >= el)),
+    do: {x, y}
   end
 
 end
