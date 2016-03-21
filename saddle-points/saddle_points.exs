@@ -32,11 +32,11 @@ defmodule Matrix do
   @spec saddle_points(String.t()) :: [{integer, integer}]
   def saddle_points(str) do
     cols = str |> columns
-    rows = str |> rows 
-    Enum.reduce(rows, [], fn row, acc ->
-      row_index = Enum.find_index(rows, &(&1 == row))
-      acc ++ get_saddle_points_in_row(row, cols, row_index)
-    end)
+    rows = str |> rows
+    Enum.with_index(rows)
+      |> Enum.reduce([], fn {row, row_index}, acc ->
+           acc ++ get_saddle_points_in_row(row, cols, row_index)
+         end)
   end
 
   @spec get_saddle_points_in_row([], [], integer) :: [{integer, integer}]
@@ -55,5 +55,5 @@ defmodule Matrix do
   defp saddle_point?(value, row, col) do
     Enum.all?(row, &(&1 <= value)) and Enum.all?(col, &(&1 >= value))
   end
-  
+
 end
