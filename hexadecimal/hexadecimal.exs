@@ -15,8 +15,24 @@ defmodule Hexadecimal do
 
   """
 
+  @dictionary "0123456789abcdef"
+              |> String.codepoints
+              |> Enum.with_index
+              |> Enum.into(%{})
+
   @spec to_decimal(binary) :: integer
   def to_decimal(hex) do
-
+    if Regex.match?(~r/^[0-9a-fA-F]+$/, hex) do
+      hex
+      |> String.downcase
+      |> String.reverse
+      |> String.codepoints
+      |> Enum.with_index
+      |> Enum.reduce(0, fn {v, i}, acc ->
+          acc = acc + @dictionary[v] * :math.pow(16, i)
+      end)
+    else
+      0
+    end
   end
 end
